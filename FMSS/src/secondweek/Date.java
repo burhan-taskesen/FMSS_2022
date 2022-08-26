@@ -73,8 +73,6 @@ public class Date {
         maxMonthDay[10][0] = 30;
         maxMonthDay[11][0] = 31;
 
-
-
         int sumDays = 0;
         for (int i = 1900; i < year; i++) {
             if (!LeapYear.isLeapYear(year)){
@@ -98,6 +96,6 @@ public class Date {
 
         //System.out.println(getDayOfYear(33, 8, 2022)); //8
 
-        System.out.println(getDayOfWeek(22, 8, 2022)); //9
+        System.out.println(getDayOfWeek(9, 5, 2023)); //9
     }
 }
