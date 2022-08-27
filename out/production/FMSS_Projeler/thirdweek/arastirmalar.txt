@@ -1,0 +1,16 @@
+regex :
+https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+
+static :
+https://hasancelik.org/java/Java-static-method/
+
+string forEach:
+bkz: IterableString
+//JLS 14.14.2
+//https://docs.oracle.com/javase/specs/jls/se11/html/jls-14.html#jls-14.14.2
+Iterable interface
+for (I #i = Expression.iterator(); #i.hasNext(); ) {
+    {VariableModifier} TargetType Identifier =
+        (TargetType) #i.next();
+    Statement
+}
