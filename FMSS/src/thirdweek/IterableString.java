@@ -16,7 +16,12 @@ public class IterableString implements Iterable<Character> {
         return new Iterator<>() {
             @Override
             public boolean hasNext() {
-                return iterator<value_.length()-1;
+                if(iterator<value_.length())
+                    return true;
+                else {
+                    iterator = 0;
+                    return false;
+                }
             }
 
             @Override
