@@ -13,7 +13,7 @@ public class IterableString implements Iterable<Character> {
 
     @Override
     public Iterator<Character> iterator() {
-        return new Iterator<Character>() {
+        return new Iterator<>() {
             @Override
             public boolean hasNext() {
                 return iterator<value_.length()-1;
@@ -24,11 +24,6 @@ public class IterableString implements Iterable<Character> {
                 return value_.charAt(iterator++);
             }
         };
-    }
-
-    @Override
-    public void forEach(Consumer<? super Character> action) {
-        Iterable.super.forEach(action);
     }
 
     public static void main(String[] args) {
