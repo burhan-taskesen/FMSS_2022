@@ -1,20 +1,21 @@
 package thirdweek;
 
+import secondweek.Date;
+
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Alphabet {
     public static List<Character> alphabetTR = List.of('a','b','c','ç','d','e','f','g','ğ','h','ı','i','j','k','l','m','n','o','ö','p','r','s','ş','t','u','ü','v','y','z');
     public static List<Character> alphabetEN = List.of('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','r','s','t','q','u','v','w','x','y','z');
 
     public static boolean isPangramTR(String sentence){ //1
-        String currentSentenceAsLowerCaser = sentence.toLowerCase();
+        String currentSentenceAsLowerCase = sentence.toLowerCase();
         for (char currentChar : alphabetTR) {
             String currentCharAsString = String.valueOf(currentChar);
-            if (!currentSentenceAsLowerCaser.contains(currentCharAsString))
+            if (!currentSentenceAsLowerCase.contains(currentCharAsString))
                 return false;
         }
         return true;
@@ -64,6 +65,48 @@ public class Alphabet {
         return resultString.toString();
     }
 
+    public static void splitStringAndCalculateResults(){
+        //<isim>:<gg/aa/yyyy>:<ders adı>:<vize>:<final>
+        //Oğuz karan:10/09/1976:Matematik:90:100
+        //.*([0-9]{2}/[0-9]{2}/[0-9]{4}).*
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Lütfen input giriniz:");
+        String string = scanner.nextLine();
+
+        Pattern pattern = Pattern.compile("([^:]*):([\\d]+)/([\\d]+)/([\\d]{4}):([\\S]+):([\\d]+):([\\d]+)");
+        Matcher matcher = pattern.matcher(string);
+        matcher.find();
+
+        int nameIndex = 1;
+        int dateAsDayIndex = 2;
+        int dateAsMonthIndex = 3;
+        int dateAsYearIndex = 4;
+        int lessonIndex = 5;
+        int midtermExamIndex = 6;
+        int finalExamIndex = 7;
+
+        String name = matcher.group(nameIndex);
+        String dateAsDay = matcher.group(dateAsDayIndex);
+        String dateAsMonth = matcher.group(dateAsMonthIndex);
+        String dateAsYear = matcher.group(dateAsYearIndex);
+        String lesson = matcher.group(lessonIndex);
+        int midtermExam = Integer.valueOf(matcher.group(midtermExamIndex));
+        int finalExam = Integer.valueOf(matcher.group(finalExamIndex));
+        int average = (int) Math.round(midtermExam*0.4 + finalExam*0.6);
+
+        String dayOfWeek = "NA";
+        for (DayOfWeek value : DayOfWeek.values()) {
+            if (value.ordinal() == Date.getDayOfWeek(Integer.valueOf(dateAsDay),Integer.valueOf(dateAsMonth),Integer.valueOf(dateAsYear)))
+                dayOfWeek = value.name();
+        }
+
+        System.out.printf("%s %s günü doğdu.Vizeden %d, finalden %d aldı ve not ortalaması : %d",name,dayOfWeek,midtermExam,finalExam,average);
+    }
+
+    enum DayOfWeek {
+        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+    }
+
     public static String getRandomString(){
         int stringLength = 30;
         //int charRange = 255;
@@ -79,12 +122,16 @@ public class Alphabet {
     }
 
     public static void main(String[] args) {
-        System.out.println(isPangramEN("The quick brown fox jumps over the lazy dog"));
-        System.out.println(isPangramTR("Pijamalı hasta yağız şoföre çabucak güvendi"));
-        System.out.println(isPalindrome("ey edip Adana'da pide ye"));
+        //System.out.println(isPangramEN("The quick brown fox jumps over the lazy dog")); //1
+        //System.out.println(isPangramTR("Pijamalı hasta yağız şoföre çabucak güvendi")); //1
+        //System.out.println(isPalindrome("ey edip Adana'da pide ye")); //2
 
-        /** 3.ödev geçen haftanın Date sınıfı içerisinde yer alıyor.**/
+        /** 3.ödev geçen haftanın Date sınıfı içerisinde yer alıyor.**/ //3
 
-        System.out.println(myStringBuilder(10));
+        //System.out.println(myStringBuilder(10)); //4
+
+        splitStringAndCalculateResults(); //5
     }
 }
+
+
