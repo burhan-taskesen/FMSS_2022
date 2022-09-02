@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 
 public class IterableString implements Iterable<Character> {
     String value_;
-    int iterator;
 
     IterableString(String value){
         value_ = value;
@@ -14,12 +13,12 @@ public class IterableString implements Iterable<Character> {
     @Override
     public Iterator<Character> iterator() {
         return new Iterator<>() {
+            int iterator = 0;
             @Override
             public boolean hasNext() {
                 if(iterator < value_.length())
                     return true;
                 else {
-                    iterator = 0;
                     return false;
                 }
             }
@@ -33,6 +32,9 @@ public class IterableString implements Iterable<Character> {
 
     public static void main(String[] args) {
         IterableString characters = new IterableString("Merhaba");
+        for (Character character : characters) {
+            System.out.println(character);
+        }
         for (Character character : characters) {
             System.out.println(character);
         }
