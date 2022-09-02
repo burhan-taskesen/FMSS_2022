@@ -2,11 +2,11 @@ package fourthweek;
 
 public class Main {
     public static void main(String[] args) {
-        myfunc(1);
+        //toplayici(1,2);
     }
 
-    public static void myfunc(int i){
-
-
+    public int toplayici(int x,int y){
+        int z = x+y;
+        return z;
     }
 }
