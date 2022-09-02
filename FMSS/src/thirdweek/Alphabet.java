@@ -3,6 +3,7 @@ package thirdweek;
 import secondweek.Date;
 
 import java.lang.reflect.Array;
+import java.time.Clock;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,9 +74,12 @@ public class Alphabet {
         System.out.println("Lütfen input giriniz:");
         String string = scanner.nextLine();
 
+        //long before = Clock.systemDefaultZone().millis();
         Pattern pattern = Pattern.compile("([^:]*):([\\d]+)/([\\d]+)/([\\d]{4}):([\\S]+):([\\d]+):([\\d]+)");
         Matcher matcher = pattern.matcher(string);
         matcher.find();
+        //long after = Clock.systemDefaultZone().millis();
+        //System.out.println("Gecen sure : " + (after-before) + " ms");
 
         int nameIndex = 1;
         int dateAsDayIndex = 2;
@@ -94,17 +98,15 @@ public class Alphabet {
         int finalExam = Integer.valueOf(matcher.group(finalExamIndex));
         int average = (int) Math.round(midtermExam*0.4 + finalExam*0.6);
 
-        String dayOfWeek = "NA";
-        for (DayOfWeek value : DayOfWeek.values()) {
-            if (value.ordinal() == Date.getDayOfWeek(Integer.valueOf(dateAsDay),Integer.valueOf(dateAsMonth),Integer.valueOf(dateAsYear)))
-                dayOfWeek = value.name();
-        }
+        String dayOfWeekAsString = "NA";
+        int dayOfWeekAsNumber = Date.getDayOfWeek(Integer.valueOf(dateAsDay),Integer.valueOf(dateAsMonth),Integer.valueOf(dateAsYear));
+        dayOfWeekAsString = DayOfWeek.values()[dayOfWeekAsNumber].toString();
 
-        System.out.printf("%s %s günü doğdu.Vizeden %d, finalden %d aldı ve not ortalaması : %d",name,dayOfWeek,midtermExam,finalExam,average);
+        System.out.printf("%s %s günü doğdu.%s dersinde vizeden %d, finalden %d aldı ve not ortalaması : %d",name,dayOfWeekAsString,lesson,midtermExam,finalExam,average);
     }
 
     enum DayOfWeek {
-        SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+        PAZAR, PAZARTESI, SALI, CARSAMBA, PERSEMBE, CUMA, CUMARTESI
     }
 
     public static String getRandomString(){
